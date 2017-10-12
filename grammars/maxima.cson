@@ -6,11 +6,41 @@ patterns: [
     include: '#comments'
   }
   {
+    include: '#commands'
+  }
+  {
     include: '#strings'
   }
   {
-    match: '\\b(if|then|else)\\b'
+    include: '#operators'
+  }
+  {
+    match: '%(e|i|gamma|phi|pi)\\b'
+    name: 'constant.numerical.maxima'
+  }
+  {
+    match: '\\b(ind|inf|infinity|minf|und|zeroa|zerob)\\b'
+    name: 'constant.numerical.maxima'
+  }
+  {
+    match: '\\b(true|false)\\b'
+    name: 'constant.language.maxima'
+  }
+  {
+    match: '\\b(if|then|else|elseif|for|step|thru|do|from|while|unless|in)\\b'
     name: 'keyword.control.maxima'
+  }
+  {
+    match: '\\b(\\w+)\\s*(\\()'
+    captures:
+      1:
+        name: 'function.maxima'
+      2:
+        name: 'punctuation.definition.begin.bracket.round.maxima'
+  }
+  {
+    match: '\\b\\w+\\b'
+    name: 'variable.maxima'
   }
   {
     match: '[;$]'
@@ -21,11 +51,59 @@ patterns: [
     name: 'punctuation.separator.delimiter.maxima'
   }
   {
+    match: '\\['
+    name: 'punctuation.definition.begin.bracket.square.maxima'
+  }
+  {
+    end: '\\]'
+    name: 'punctuation.definition.end.bracket.square.maxima'
+  }
+  {
+    match: '\\('
+    name: 'punctuation.definition.begin.bracket.round.maxima'
+  }
+  {
+    end: ')'
+    name: 'punctuation.definition.end.bracket.round.maxima'
+  }
+  {
+    match: '{'
+    name: 'punctuation.definition.begin.bracket.curly.maxima'
+  }
+  {
+    end: '}'
+    name: 'punctuation.definition.end.bracket.curly.maxima'
+  }
+  {
     match: '(_|__|%|%%)'
     name: 'variable.system.maxima'
   }
 ]
 repository:
+  commands:
+    patterns: [
+      {
+        begin: '^\\s*:lisp(?:-quiet)?\\b'
+        beginCaptures:
+          0:
+            name: 'keyword.command.maxima'
+        end: '$'
+        contentName: 'source.embedded.common.lisp'
+        patterns: [
+          {
+            include: 'source.common.lisp'
+          }
+        ]
+      }
+      {
+        begin: '^\\s*:(?:break|bt|continue|delete|disable|enable|help|info|next|quit|resume|step|top)\\b'
+        beginCaptures:
+          0:
+            name: 'keyword.command.maxima'
+        end: '$'
+        contentName: 'keyword.command.value.maxima'
+      }
+    ]
   comments:
     patterns: [
       {
@@ -47,6 +125,25 @@ repository:
         captures:
           1:
             name: 'constant.character.escape.line-continuation.maxima'
+      }
+    ]
+  operators:
+    patterns: [
+      {
+        match: '::?=?'
+        name: 'keyword.operator.assignment.maxima'
+      }
+      {
+        match: '#|<=?|>=?|=|\\bequal\\b|\\bnotequal\\b'
+        name: 'keyword.operator.comparison.maxima'
+      }
+      {
+        match: '\\b(and|or|not)\\b'
+        name: 'keyword.operator.logical.maxima'
+      }
+      {
+        match: '[-.+*^\'?]'
+        name: 'keyword.operator.maxima'
       }
     ]
   strings:
@@ -88,7 +185,7 @@ repository:
   string_placeholder:
     patterns: [
       {
-        match: '~[AS]'
+        match: '~.*?[%&t$dboxrpfeghas~<()\\[\\]{}]'
         name: 'constant.other.placeholder.maxima'
       }
     ]
