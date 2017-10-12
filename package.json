@@ -1,0 +1,14 @@
+{
+  "name": "language-maxima",
+  "version": "0.1.0",
+  "description": "Syntax highlighting for Maxima in Atom",
+  "repository": "https://github.com/yitzchak/language-maxima",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "keywords": [
+    "maxima"
+  ]
+}
