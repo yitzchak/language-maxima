@@ -1,0 +1,94 @@
+scopeName: 'source.maxima'
+name: 'Maxima'
+fileTypes: ['mac']
+patterns: [
+  {
+    include: '#comments'
+  }
+  {
+    include: '#strings'
+  }
+  {
+    match: '\\b(if|then|else)\\b'
+    name: 'keyword.control.maxima'
+  }
+  {
+    match: '[;$]'
+    name: 'punctuation.terminator.statement.maxima'
+  }
+  {
+    match: ','
+    name: 'punctuation.separator.delimiter.maxima'
+  }
+  {
+    match: '(_|__|%|%%)'
+    name: 'variable.system.maxima'
+  }
+]
+repository:
+  comments:
+    patterns: [
+      {
+        begin: '/\\*'
+        beginCaptures:
+          0:
+            name: 'punctuation.definition.comment.begin.maxima'
+        end: '\\*/'
+        endCaptures:
+          0:
+            name: 'punctuation.definition.comment.end.maxima'
+        name: 'comment.block.maxima'
+      }
+    ]
+  line_continuation_character:
+    patterns: [
+      {
+        match: '(\\\\)\\n'
+        captures:
+          1:
+            name: 'constant.character.escape.line-continuation.maxima'
+      }
+    ]
+  strings:
+    patterns: [
+      {
+        begin: '"'
+        beginCaptures:
+          0:
+            name: 'punctuation.definition.string.begin.maxima'
+        end: '"'
+        endCaptures:
+          0:
+            name: 'punctuation.definition.string.end.maxima'
+        name: 'string.quoted.double.maxima'
+        patterns: [
+          {
+            include: '#string_escaped_char'
+          }
+          {
+            include: '#string_placeholder'
+          }
+          {
+            include: '#line_continuation_character'
+          }
+        ]
+      }
+    ]
+  string_escaped_char:
+    patterns: [
+      {
+        match: '\\\\[\\\\"\\n]'
+        name: 'constant.character.escape.maxima'
+      }
+      {
+        match: '\\\\.'
+        name: 'invalid.illegal.unknown-escape.maxima'
+      }
+    ]
+  string_placeholder:
+    patterns: [
+      {
+        match: '~[AS]'
+        name: 'constant.other.placeholder.maxima'
+      }
+    ]
