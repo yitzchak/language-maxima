@@ -18,16 +18,7 @@ patterns: [
     include: '#operators'
   }
   {
-    match: '%(e|i|gamma|phi|pi)\\b'
-    name: 'constant.numerical.maxima'
-  }
-  {
-    match: '\\b(ind|inf|infinity|minf|und|zeroa|zerob)\\b'
-    name: 'constant.numerical.maxima'
-  }
-  {
-    match: '\\b(true|false)\\b'
-    name: 'constant.language.maxima'
+    include: '#constants'
   }
   {
     match: '\\b(if|then|else|elseif|for|step|thru|do|from|while|unless|in)\\b'
@@ -42,7 +33,7 @@ patterns: [
         name: 'punctuation.definition.begin.bracket.round.maxima'
   }
   {
-    match: '\\b[A-Z]\\w+\\b'
+    match: '\\b[a-zA-Z]\\w+\\b'
     name: 'variable.maxima'
   }
   {
@@ -78,7 +69,7 @@ patterns: [
     name: 'punctuation.definition.end.bracket.curly.maxima'
   }
   {
-    match: '(_|__|%|%%)'
+    match: '(\\b__?\\b|%%?)'
     name: 'variable.system.maxima'
   }
 ]
@@ -119,6 +110,25 @@ repository:
           0:
             name: 'punctuation.definition.comment.end.maxima'
         name: 'comment.block.maxima'
+      }
+    ]
+  constants:
+    patterns: [
+      {
+        match: '%(e|i|gamma|phi|pi)\\b'
+        name: 'constant.numerical.maxima'
+      }
+      {
+        match: '%(%e|%k|a_0|alpha|b|b_prime|c|c_1|c_1L|c_2|e_0|E_h|F|G|G_0|h|h_bar|K_J|l_P|m_e|m_P|m_u|mu_0|mu_B|mu_N|n_0|N_A|Phi_0|R|R_inf|R_K|ratio_h_me|ratio_S0_R|sigma|t_P|T_P|V_m|Z_0)\\b'
+        name: 'constant.physical.maxima'
+      }
+      {
+        match: '\\b(ind|inf|infinity|minf|und|zeroa|zerob)\\b'
+        name: 'constant.numerical.maxima'
+      }
+      {
+        match: '\\b(true|false)\\b'
+        name: 'constant.language.maxima'
       }
     ]
   line_continuation_character:
